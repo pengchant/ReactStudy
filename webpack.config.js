@@ -1,10 +1,34 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin  = require('clean-webpack-plugin')
 
 module.exports = {
-    entry:'./src/index.js',
+    // entry:'./src/index.js',
+    entry:{
+        app:'./src/index.js',
+        print:"./src/print.js"
+    },
+    // 用于开发过程中定位错误的出处,bundle.js<--->(a.js,b.js,c.js)
+    devtool:'inline-source-map',
+    // 开发的默认服务器
+    devServer:{
+        contentBase:'./dist'
+    },
+    // 安装的插件
+    plugins:[
+        // 对dist文件夹清空的插件(dist为文件夹)
+        new CleanWebpackPlugin(['dist']),
+        // html的插件
+        new HtmlWebpackPlugin({
+            title:"output management"
+        })
+    ],
+    // 输出的文件
     output:{
-        filename:'bundle.js',
-        path:path.resolve(__dirname,'dist')
+        // filename:'bundle.js',
+        filename:'[name].bundle.js',
+        path:path.resolve(__dirname,'dist'),
+        publicPath:'/'
     },
     module:{
         rules:[
