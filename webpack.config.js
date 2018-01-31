@@ -1,18 +1,24 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin  = require('clean-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin  = require('clean-webpack-plugin');
+const webpack = require("webpack");
 
 module.exports = {
     // entry:'./src/index.js',
     entry:{
-        app:'./src/index.js',
-        print:"./src/print.js"
+        // app:'./src/index.js',
+        // print:"./src/print.js"
+
+        // HMR
+        app:'./src/index.js'
     },
     // 用于开发过程中定位错误的出处,bundle.js<--->(a.js,b.js,c.js)
     devtool:'inline-source-map',
     // 开发的默认服务器
     devServer:{
-        contentBase:'./dist'
+        contentBase:'./dist',
+        // HMR
+        hot:true
     },
     // 安装的插件
     plugins:[
@@ -21,13 +27,18 @@ module.exports = {
         // html的插件
         new HtmlWebpackPlugin({
             title:"output management"
-        })
+        }),
+
+        //HMR
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ],
     // 输出的文件
     output:{
         // filename:'bundle.js',
         filename:'[name].bundle.js',
         path:path.resolve(__dirname,'dist'),
+        // 为了将webpack-dev-middleware和express结合使用
         publicPath:'/'
     },
     module:{

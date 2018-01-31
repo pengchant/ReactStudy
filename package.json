@@ -10,7 +10,8 @@
     "start": "webpack --config webpack.config.js",
     "watch": "webpack --watch",
     "runserver": "webpack-dev-server --open",
-    "express-server":"node server.js"
+    "express-server":"node server.js",
+    "nodeapi-server":"node dev-server.js"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",

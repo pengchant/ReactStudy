@@ -1,4 +1,5 @@
-// 使用express框架
+// 使用express框架结合webpack-dev-middleware来创建开发环境
+
 const express = require("express")
 const webpack = require("webpack")
 const webpackDevMiddleware = require("webpack-dev-middleware")

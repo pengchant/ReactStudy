@@ -1,8 +1,10 @@
 import _ from 'lodash';
-// import './style.css';
+import './style.css';
 // import icon from './logo.svg';
 // import Data from './data.xml';
 import printMe from './print.js';
+
+import {cube} from './math.js'
 
 function component(){
     var element = document.createElement('div');
@@ -24,7 +26,21 @@ function component(){
     btn.onclick = printMe;
     element.appendChild(btn);
 
+    element.innerHTML += ['hello,webpack','cube(5) is ',cube(5)].join('<br/>');
+
     return element;
 }
 
-document.body.appendChild(component())
+// document.body.appendChild(component())
+let element = component();
+document.body.appendChild(element);
+
+if(module.hot){
+    module.hot.accept('./print.js',function(){
+        console.log("接受新更新的printMe模块!");
+        // printMe();
+        document.body.removeChild(element);
+        element = component();
+        document.body.appendChild(element);
+    })
+}
